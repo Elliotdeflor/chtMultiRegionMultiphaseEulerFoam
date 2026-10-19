@@ -1,0 +1,42 @@
+/* Upstream folders this solver borrows from (absolute, so the solver can
+   live anywhere). Local ./fluid and ./solid come first; every local file has
+   a name that does not exist upstream, so nothing is shadowed by accident. */
+CHT         = $(FOAM_SOLVERS)/heatTransfer/chtMultiRegionFoam
+MPEF        = $(FOAM_SOLVERS)/multiphase/reactingMultiphaseEulerFoam
+phaseSystem = $(LIB_SRC)/phaseSystemModels/reactingEuler
+
+EXE_INC = \
+    -I./fluid \
+    -I./solid \
+    -I$(CHT) \
+    -I$(CHT)/fluid \
+    -I$(CHT)/solid \
+    -I$(CHT)/include \
+    -I$(MPEF) \
+    -I${phaseSystem}/multiphaseSystem/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+    -I$(LIB_SRC)/transportModels/compressible/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/basic/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/specie/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/solidThermo/lnInclude \
+    -I$(LIB_SRC)/thermophysicalModels/radiation/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/turbulenceModels/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/compressible/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/compressible/turbulentFluidThermoModels/turbulentFluidFvPatchFields/lnInclude \
+    -I$(LIB_SRC)/TurbulenceModels/phaseCompressible/lnInclude \
+    -I$(LIB_SRC)/regionModels/regionModel/lnInclude
+
+EXE_LIBS = \
+    -lfiniteVolume \
+    -lfvOptions \
+    -lmeshTools \
+    -lsampling \
+    -lcompressibleTransportModels \
+    -lfluidThermophysicalModels \
+    -lspecie \
+    -lsolidThermo \
+    -lradiationModels \
+    -lregionModels \
+    -lreactingMultiphaseSystem
